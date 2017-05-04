@@ -4,7 +4,7 @@ public class Main {
 
   public static void main(String[] args) {
     // write your code here
-   String tagName = getHeartBeatTagName("SNK-150.W0576-STATE");
+    String tagName = getHeartBeatTagName("SNK-150.W0576-STATE");
     System.out.println(tagName);
 
     tagName = getHeartBeatTagName("GANTRY-3.A1193-OPER_RUNNING");

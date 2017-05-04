@@ -4,72 +4,154 @@
  */
 package com.ge;
 
-import static java.util.Collections.min;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 public class FacebookInterviewPrep {
   public static void main(String[] args) {
-    System.out.println(arrange("WWWB", 2));
-    ;
+    //System.out.println(arrange("WWWB", 2));
+    ArrayList<Integer> a = new ArrayList<>(Arrays
+        .asList(0, 1, 2, 0, 3, 2, 2, 2, 1, 0, 0, 0, 1, 0, 0, 2, 2, 2, 3, 2, 3, 1, 2, 1, 2, 2, 3, 2, 3, 0, 3, 0, 2, 1, 2,
+            0, 0, 3, 2, 3, 0, 3, 0, 2, 3, 2, 2, 3, 1, 3, 3, 0, 3, 3, 0, 3, 3, 2, 0, 0, 0, 0, 1, 3, 0, 3, 1, 3, 1, 0, 2,
+            3, 3, 3, 2, 3, 3, 2, 2, 3, 3, 3, 1, 3, 2, 1, 0, 0, 0, 1, 0, 3, 2, 1, 0, 2, 3, 0, 2, 1, 1, 3, 2, 0, 1, 1, 3,
+            3, 0, 1, 2, 1, 2, 2, 3, 1, 1, 3, 0, 2, 2, 2, 2, 1, 0, 2, 2, 2, 1, 3, 1, 3, 1, 1, 0, 2, 2, 0, 2, 3, 0, 1, 2,
+            1, 1, 3, 0, 2, 3, 2, 3, 2, 0, 2, 2, 3, 2, 2, 0, 2, 1, 3, 0, 2, 0, 2, 1, 3, 1, 1, 0, 0, 3, 0, 1, 2, 2, 1, 2,
+            0, 1, 0, 0, 0, 1, 1, 0, 3, 2, 3, 0, 1, 3, 0, 0, 1, 0, 1, 0, 0, 0, 0, 3, 2, 2, 0, 0, 1, 2, 0, 3, 0, 3, 3, 3,
+            0, 3, 3, 1, 0, 1, 2, 1, 0, 0, 2, 3, 1, 1, 3, 2));
+    System.out.println(removeElementLinkedList(a, 2));
   }
 
+  public static int removeElementLinkedList(ArrayList<Integer> a, int b) {
+    LinkedList<Integer> c = new LinkedList<>(a);
+    int deleted = 0;
+    Iterator<Integer> listIterator = c.iterator();
+    while (listIterator.hasNext()) {
+      if (listIterator.next() == b) {
+        listIterator.remove();
+        deleted++;
+      }
+    }
+    listIterator = c.iterator();
+    int index = 0;
+    while(listIterator.hasNext()) {
+      a.set(index++, listIterator.next());
+    }
+    return a.size() - deleted;
+  }
+
+  public static long reverseBits(long num) {
+    long bitmask = 0x00001111;
+    //we need only 32 bits of these..
+    long num32 = num & bitmask;
+    StringBuffer stringBuffer = new StringBuffer();
+
+    while (num32 != 0) {
+      stringBuffer.append(num32 % 2);
+      num32 = num32 / 2;
+    }
+
+    //we got this 0001 for 110 011
+    return 0;
+  }
+
+  public static int removeElement(ArrayList<Integer> a, int b) {
+    int index = 0;
+    int deleted = 0;
+    while (index < a.size()) {
+      if (a.get(index) == b) {
+        //shift the rest of the array the right.
+        for (int i = index; i < a.size() - 1; i++) {
+          a.set(i, a.get(i + 1));
+        }
+
+        if (index == a.size() - 1) {
+          a.set(index, b - 1);
+        }
+        deleted++;
+        continue;
+      }
+      index++;
+    }
+    return a.size() - deleted;
+  }
+
+  public static ArrayList<Integer> wave(ArrayList<Integer> a) {
+    Collections.sort(a);
+    for (int i = 1; i < a.size(); i += 2) {
+      int temp = a.get(i);
+      a.set(i, a.get(i - 1));
+      a.set(i - 1, temp);
+    }
+    return a;
+  }
+  //
+  //  public int isSymmetric(TreeNode a) {
+  //    if(a == null) {
+  //      return 1;
+  //    }
+  //
+  //    String str1 = leftOrderFirst(a.left);
+  //    String str2 = rightOrderFirst(a.right);
+  //    return str1.equalsIgnoreCase(str2) == true ? 1 : 0;
+  //  }
+  //
+  //  String rightOrderFirst(TreeNode a) {
+  //    if(a == null) {
+  //      return "";
+  //    }
+  //    return rightOrderFirst(a.right) + rightOrderFirst(a.left) + a.val;
+  //  }
+  //
+  //  String leftOrderFirst(TreeNode a) {
+  //    if(a == null) {
+  //      return "";
+  //    }
+  //    return leftOrderFirst(a.left) + leftOrderFirst(a.right) + a.val;
+  //  }
+
   public static int arrange(String a, int b) {
-    ArrayList<String> horsesInStables = new ArrayList<>();
+    ArrayList<ArrayList<String>> arrangements = new ArrayList<>();
     int numberOfHorses = a.length();
     if (numberOfHorses < b) {
       return -1;
     }
-    getValueFromStables(a, 0, numberOfHorses, b, horsesInStables);
-    ArrayList<Integer> integerValues = getIntegerValuesFromString(horsesInStables);
-    return min(integerValues);
+    getValueFromStables(a, b, arrangements);
+    ArrayList<Integer> integerValues = getIntegerValuesFromString(arrangements);
+    return 0;//min(integerValues);
   }
 
-  private static ArrayList<Integer> getIntegerValuesFromString(ArrayList<String> horsesInStables) {
+  private static ArrayList<Integer> getIntegerValuesFromString(ArrayList<ArrayList<String>> horsesInStables) {
     ArrayList<Integer> integerArrayList = new ArrayList<>();
-    for (int i = 0; i < horsesInStables.size(); i++) {
-      String horses = horsesInStables.get(i);
-      int whiteHorses = 0;
-      int blackHorses = 0;
-      for (int j = 0; j < horsesInStables.get(i).length(); j++) {
-        if (horses.charAt(j) == 'W') {
-          whiteHorses++;
-        } else {
-          blackHorses++;
-        }
-      }
-      integerArrayList.add(whiteHorses * blackHorses);
-    }
+    //    for (int i = 0; i < horsesInStables.size(); i++) {
+    //      String horses = horsesInStables.get(i);
+    //      int whiteHorses = 0;
+    //      int blackHorses = 0;
+    //      for (int j = 0; j < horsesInStables.get(i).length(); j++) {
+    //        if (horses.charAt(j) == 'W') {
+    //          whiteHorses++;
+    //        } else {
+    //          blackHorses++;
+    //        }
+    //      }
+    //      integerArrayList.add(whiteHorses * blackHorses);
+    //    }
     return integerArrayList;
   }
 
-  private static void getValueFromStables(String a, int i, int numberOfHorses, int numOfStables,
-      ArrayList<String> horsesInStables) {
-    if (numOfStables == 0) {
-      //the last horse has been put inside the stable.
-      return;
-    }
-    ArrayList<ArrayList<String>> arrangements = new ArrayList<>();
-    for (int index = i; index < numberOfHorses; index++) {
-      //get all the horses till index i and put them in the stable.
-      if (numOfStables == 1) {
-        horsesInStables.add(a);
-      } else {
-        horsesInStables.add(a.substring(0, index + 1));
-      }
-      getValueFromStables(a.substring(i + 1, a.length()), index, numberOfHorses - index - 1, numOfStables - 1,
-          horsesInStables);
+  private static void getValueFromStables(String a, int numOfStables, ArrayList<ArrayList<String>> arrangements) {
+    if (numOfStables == 1) {
 
-      System.out.println(horsesInStables);
-      horsesInStables.clear();
-      arrangements.add(horsesInStables);
     }
-    System.out.println(arrangements);
+    for (int i = 0; i < a.length(); i++) {
+
+    }
   }
 
   public static ArrayList<Integer> stepnum(int a, int b) {
