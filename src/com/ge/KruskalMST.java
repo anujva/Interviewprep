@@ -5,5 +5,5 @@
 package com.ge;
 
 public class KruskalMST {
-  
+
 }
