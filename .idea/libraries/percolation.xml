@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="percolation">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/src/percolation.zip!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>
