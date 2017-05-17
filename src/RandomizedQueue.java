@@ -12,6 +12,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
   public RandomizedQueue() {
     nodes = new Object[INITIAL_SIZE];
+    size = 0;
   }
 
   public static void main(String[] args) {
@@ -19,17 +20,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
   }
 
   public boolean isEmpty() {
-
+    if(size == 0) {
+      return true;
+    }
     return false;
   }
 
   public int size() {
-
-    return 0;
+    return size;
   }
 
   public void enqueue(Item item) {
-
+    nodes[size] = item;
   }
 
   public Item dequeue() {
