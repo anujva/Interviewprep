@@ -2,7 +2,7 @@
  * Copyright (c) 2016 GE. All Rights Reserved.
  * GE Confidential: Restricted Internal Distribution
  */
-package com.ge;
+package com.anuj;
 
 public class Solution {
   public static void main(String[] args) {

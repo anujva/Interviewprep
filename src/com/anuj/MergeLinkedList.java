@@ -1,4 +1,4 @@
-package com.ge;
+package com.anuj;
 
 class ListNode {
     int val;
