@@ -10,10 +10,11 @@ import java.util.List;
  */
 public class GroupAnagrams {
     public static void main(String[] args) {
-        String [] strs = {
+        String[] strs = {
                 "eat", "tea", "tan", "ate", "nat", "bat"
         };
-        System.out.println(groupAnagrams(strs));;
+        System.out.println(groupAnagrams(strs));
+        ;
     }
 
     public static List<List<String>> groupAnagrams(String[] strs) {
