@@ -5,7 +5,7 @@ package com.anuj;
  */
 public class SuperWashingMachines {
     public static void main(String[] args) {
-        System.out.println(findMinMoves(new int[]{0, 0, 11, 5}));
+        System.out.println(findMinMoves(new int[] { 0, 0, 11, 5 }));
     }
 
     public static int findMinMoves(int[] machines) {
@@ -17,6 +17,7 @@ public class SuperWashingMachines {
                 max = machines[i];
             }
         }
+
         if (totalNumOfClothes % machines.length != 0) {
             return -1;
         }
