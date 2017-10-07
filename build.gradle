@@ -2,14 +2,14 @@ apply plugin: 'java'
 sourceSets {
     main {
         java {
-            srcDirs = ['src']
+            srcDirs = ['src/main/java']
         }
         resources {
-            srcDirs = ['src']
+            srcDirs = ['src/main/java', 'src/main/resources']
         }
     }
 }
 
-dependencies{
+dependencies {
     compile files('libs/algs4.jar')
 }
