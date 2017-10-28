@@ -1,43 +1,30 @@
-/*
- * Copyright (c) 2016 GE. All Rights Reserved.
- * GE Confidential: Restricted Internal Distribution
- */
 package com.anuj;
 
 public class MergeSortSubRoutine {
     public static int[] merge(int[] arrLeft, int[] arrRight) {
-        int k = 0;
-        int i = 0;
-        int j = 0;
-        if (arrLeft == null || arrLeft.length == 0) {
-            return arrRight;
-        } else if (arrRight == null || arrRight.length == 0) {
-            return arrLeft;
-        }
         int[] mergeArray = new int[arrLeft.length + arrRight.length];
-        for (; k < arrLeft.length + arrRight.length; k++) {
-            if (i < arrLeft.length && j < arrRight.length) {
-                if (arrLeft[i] < arrRight[j]) {
-                    mergeArray[k] = arrLeft[i++];
-                    if (i == arrLeft.length) {
-                        k++;
-                        break;
-                    }
-                } else {
-                    mergeArray[k] = arrRight[j++];
-                    if (j == arrRight.length) {
-                        k++;
-                        break;
-                    }
-                }
+        int i = 0, j = 0;
+        int k = 0;
+        for (k = 0; k < arrLeft.length + arrRight.length; k++) {
+            if (i >= arrLeft.length) {
+                break;
             }
-        }
-        if (i == arrLeft.length) {
-            for (; k < arrLeft.length + arrRight.length; k++) {
+            if (j >= arrRight.length) {
+                break;
+            }
+
+            if (arrLeft[i] < arrRight[j]) {
+                mergeArray[k] = arrLeft[i++];
+            } else {
                 mergeArray[k] = arrRight[j++];
             }
-        } else if (j == arrRight.length) {
-            for (; k < arrLeft.length + arrRight.length; k++) {
+        }
+
+        for (; k < arrLeft.length + arrRight.length; k++) {
+            if (i >= arrLeft.length) {
+                mergeArray[k] = arrRight[j++];
+            }
+            if (j >= arrRight.length) {
                 mergeArray[k] = arrLeft[i++];
             }
         }
@@ -46,11 +33,13 @@ public class MergeSortSubRoutine {
     }
 
     public static void main(String[] args) {
-        int[] arr1 = new int[0];
-        System.out.println("Array Length: " + arr1.length);
-        int[] arr2 = new int[] { 1, 2, 4, 7, 8, 9, 12 };
-
-        int[] mergedArray = merge(arr1, arr2);
+        int[] arrLeft = new int[]{
+                2, 6, 7, 10, 25
+        };
+        int[] arrRight = new int[]{
+                1, 3, 5, 7, 13
+        };
+        int[] mergedArray = merge(arrLeft, arrRight);
 
         for (int i = 0; i < mergedArray.length; i++) {
             System.out.println(mergedArray[i]);
