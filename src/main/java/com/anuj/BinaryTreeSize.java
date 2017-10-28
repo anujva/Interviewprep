@@ -1,6 +1,5 @@
 package com.anuj;
 
-
 public class BinaryTreeSize {
 
     public static int size(TreeNode root) {
