@@ -16,7 +16,7 @@ public class BloombergInsertStars {
 
         List<String> input = new ArrayList<>(Arrays.asList("Hi", "Hello", "Hey", "Hi", "Hello", "Hey"));
         ArrayList<String> sortedDedupValues = removeDuplicates(input);
-        for(String str: sortedDedupValues) {
+        for (String str : sortedDedupValues) {
             System.out.println(str);
         }
     }
