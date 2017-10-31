@@ -1,8 +1,8 @@
 package com.anuj;
 
 class ListNode {
-    int val;
-    ListNode next;
+    public int val;
+    public ListNode next;
 
     ListNode(int val) {
         this.val = val;
@@ -82,7 +82,9 @@ public class MergeLinkedList {
                 }
             }
         }
-        if (oldTemp != null) oldTemp.next = null;
+        if (oldTemp != null) {
+            oldTemp.next = null;
+        }
 
         return head;
     }
