@@ -33,6 +33,16 @@ public class TransposeMatrix {
         }
     }
 
+    public static void flipHorizontally(int[][] matrix) {
+        for (int i = 0; i < matrix.length / 2; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[matrix.length - 1 - i][j];
+                matrix[matrix.length - 1 - i][j] = temp;
+            }
+        }
+    }
+
     public static boolean isAnagram(String input1, String input2) {
         //calculate frequency of characters in input1
         HashMap<Character, Integer> input1Freq = new HashMap<>();
@@ -80,7 +90,6 @@ public class TransposeMatrix {
         findKthSmallestSubRoutine(root, k, priorityQueue);
         return priorityQueue.peek();
     }
-
 
     public static void findKthSmallestSubRoutine(TreeNode root, int k, PriorityQueue<TreeNode> priorityQueue) {
         if (root == null) {

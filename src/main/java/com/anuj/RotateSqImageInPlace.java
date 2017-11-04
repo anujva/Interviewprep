@@ -2,9 +2,7 @@ package com.anuj;
 
 public class RotateSqImageInPlace {
     public static void main(String[] args) {
-        int[][] matrix = new int[][] {
-                {1, 2, 3}, {4, 5, 6}, {7, 8, 9}
-        };
+        int[][] matrix = new int[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
         printRowByRow(matrix);
         rotateSquareImageCW(matrix);
         printRowByRow(matrix);
@@ -23,4 +21,11 @@ public class RotateSqImageInPlace {
         TransposeMatrix.transposeMatrix(matrix);
         TransposeMatrix.flipVertically(matrix);
     }
+
+    public static void rotateSquareImageCCW(int[][] matrix) {
+        TransposeMatrix.transposeMatrix(matrix);
+        TransposeMatrix.flipHorizontally(matrix);
+    }
+
+
 }
