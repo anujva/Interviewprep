@@ -1,7 +1,4 @@
-/*
- * Copyright (c) 2016 GE. All Rights Reserved.
- * GE Confidential: Restricted Internal Distribution
- */
+
 
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
