@@ -21,14 +21,15 @@ public class TreeNode {
 
     public void printTreeNode() {
         preOrderPrintTree(this);
+        System.out.println();
     }
 
     private void preOrderPrintTree(TreeNode root) {
         if (root == null) {
-            System.out.println("null");
+            System.out.print(" --> null");
             return;
         }
-        System.out.println(root.data);
+        System.out.print(" --> " + root.data);
         preOrderPrintTree(root.left);
         preOrderPrintTree(root.right);
     }
