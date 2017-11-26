@@ -4,16 +4,25 @@ import java.util.Arrays;
 
 public class SummationSubset {
     public static void main(String[] args) {
-
+        int[] arr = new int[]{
+                1, 2, 3, 4
+        };
+        System.out.println(groupSum(arr, 7));
     }
 
     public static boolean groupSum(int[] arr, int target) {
-        Arrays.sort(arr);
-        //we can try to add up to the target and then roll back each of the
-        //values that have already been used to get to the target.
-        //This will require an exhaustive search on the array search space.
-        //There might be an easier way of doing this. I am trying to think
-        //how that could be achieved. Lets see.
-        return false;
+        boolean answer = false;
+        for (int i = 0; i < arr.length; i++) {
+            int[] arrCopy = new int[arr.length - 1];
+            int index = 0;
+            for (int j = i + 1; j < arr.length; j++) {
+                arrCopy[index++] = arr[j];
+            }
+            if (target - arr[i] == 0) {
+                return true;
+            }
+            answer = answer || groupSum(arrCopy, target - arr[i]);
+        }
+        return answer;
     }
 }
