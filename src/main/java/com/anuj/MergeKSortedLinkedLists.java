@@ -34,13 +34,10 @@ public class MergeKSortedLinkedLists {
 
     public static ListNode mergeKLists(ArrayList<ListNode> lists) {
         ListNode[] arrIndices = new ListNode[lists.size()];
-        PriorityQueue<ListNode> priorityQueueWrapper = new PriorityQueue<>(new Comparator<ListNode>() {
-            @Override
-            public int compare(ListNode o1, ListNode o2) {
-                if (o1.val < o2.val) return -1;
-                if (o1.val > o2.val) return 1;
-                return 0;
-            }
+        PriorityQueue<ListNode> priorityQueueWrapper = new PriorityQueue<>((o1, o2) -> {
+            if (o1.val < o2.val) return -1;
+            if (o1.val > o2.val) return 1;
+            return 0;
         });
         //initialize arrIndices
         for (int i = 0; i < lists.size(); i++) arrIndices[i] = lists.get(i);
