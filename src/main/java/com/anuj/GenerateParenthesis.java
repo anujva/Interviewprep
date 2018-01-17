@@ -13,8 +13,7 @@ public class GenerateParenthesis {
         System.out.println(answers);
     }
 
-    public static void generateParenthesisSubroutine(String s, int no,
-                                                     int nc, int n, ArrayList<String> answers) {
+    public static void generateParenthesisSubroutine(String s, int no, int nc, int n, ArrayList<String> answers) {
         if (no == nc && no == n) {
             answers.add(s);
         }

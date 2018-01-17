@@ -1,4 +1,3 @@
-
 package com.anuj;
 
 import java.util.ArrayList;
@@ -12,6 +11,14 @@ class Interval {
     Interval(int start, int end) {
         this.start = start;
         this.end = end;
+    }
+
+    @Override
+    public String toString() {
+        return "Interval{" +
+                "start=" + start +
+                ", end=" + end +
+                '}';
     }
 }
 
@@ -56,7 +63,7 @@ public class MergeIntervals {
         }
         //was the last interval swallowed/added?
         if (interval.start == intervals.get(intervals.size() - 1).start && interval.end == intervals
-            .get(intervals.size() - 1).end) {
+                .get(intervals.size() - 1).end) {
             answer.add(interval);
         }
         return answer;
