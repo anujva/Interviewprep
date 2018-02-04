@@ -18,11 +18,10 @@ public class GenerateParenthesis {
             answers.add(s);
         }
         if (no < n) {
-            generateParenthesisSubroutine(s.concat("("), no + 1, nc, n, answers);
+            generateParenthesisSubroutine(s.concat("{"), no + 1, nc, n, answers);
         }
-
         if (nc < no) {
-            generateParenthesisSubroutine(s.concat(")"), no, nc + 1, n, answers);
+            generateParenthesisSubroutine(s.concat("}"), no, nc + 1, n, answers);
         }
     }
 }
