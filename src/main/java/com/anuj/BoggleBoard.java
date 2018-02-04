@@ -50,7 +50,7 @@ public class BoggleBoard {
                 }
             }
 
-            if(!found) {
+            if (!found) {
                 if (i > -1 && i < board.length && j > 0 && j < board[0]
                         .length && word.charAt(wordIndex) == board[i][j - 1]) {
                     found = searchForWord(board, word, i, j - 1, wordIndex +
