@@ -8,7 +8,7 @@ public class BoggleBoard {
                 {'G', 'H', 'I'},
         };
 
-        System.out.println(boggleSearch(board, "HELLO"));
+        System.out.println(boggleSearch(board, "HELE"));
     }
 
     public static boolean boggleSearch(char[][] board, String word) {
