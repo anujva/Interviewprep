@@ -38,9 +38,7 @@ public class LetterCombinationsTelephoneNumber {
         }
         //at the end of this loop, list should have all the values for the letter
         //combination
-        Set<String> combinationsAndPermutations = new HashSet<>();
-        String[] answersArray = new String[10];
-        return Arrays.asList(combinationsAndPermutations.toArray(answersArray));
+        return list;
     }
 
     public static void combinationsAndPermutations(String wordToPermute,
