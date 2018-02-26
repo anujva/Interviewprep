@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'application'
 sourceSets {
     main {
         java {
@@ -9,6 +10,8 @@ sourceSets {
         }
     }
 }
+
+mainClassName = 'com.anuj.LargestSquare'
 
 dependencies {
     compile files('libs/algs4.jar')
