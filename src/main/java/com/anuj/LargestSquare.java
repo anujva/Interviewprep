@@ -3,11 +3,11 @@ package com.anuj;
 public class LargestSquare {
 
     public static void main(String[] args) {
-        char[][] matrix = new char[][] {
-            {'1', '1', '0', '1'},
-                {'1', '1', '1', '1'},
-                {'1', '1', '1', '1'},
-                {'1', '1', '1', '1'}
+        char[][] matrix = new char[][]{
+            {'1', '0', '0', '0'},
+            {'0', '0', '0', '0'},
+            {'0', '0', '0', '0'},
+            {'0', '0', '0', '0'}
         };
         System.out.println(largestSquare(matrix));
     }
@@ -42,7 +42,7 @@ public class LargestSquare {
 
         //if the value for the i, j, k is zero for a certain index,
         //that means that it wasn't possible to create a square
-        int max = 0;
+        int max = -1;
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
                 //what should be max value of d?
@@ -50,24 +50,24 @@ public class LargestSquare {
                 int dist = matrix.length - 1 - i <
                     matrix[0].length - 1 - j ? matrix.length - 1 - i
                     : matrix[0].length - 1 - j;
-                for (int k = dist; k > 0; k--) {
+                for (int k = dist; k > -1; k--) {
                     if (max >= k) {
                         continue;
                     }
                     int val = fillInValuesInMemoAndReturn(matrix, i,
-                            j, k, dist, largestSquareMatrixMemo);
-                    if (val == 1 && max < dist) {
-                        max = dist;
+                        j, k, dist, largestSquareMatrixMemo);
+                    if (val == 1 && max < k) {
+                        max = k;
                     }
                 }
             }
         }
-        return max+1;
+        return (max + 1) * (max + 1);
     }
 
     private static int fillInValuesInMemoAndReturn(char[][] matrix,
-            int rowIndex, int columnIndex, int distance, int maxDistance,
-            int[][][] largestSqMatMemo) {
+        int rowIndex, int columnIndex, int distance, int maxDistance,
+        int[][][] largestSqMatMemo) {
         //in order to decide, we will need to create a call stack
         if (rowIndex < matrix.length && columnIndex < matrix[0].length) {
             if (largestSqMatMemo[rowIndex][columnIndex][distance] != -1) {
@@ -85,23 +85,23 @@ public class LargestSquare {
                 int left = -3;
                 if (rowIndex + 1 < matrix.length) {
                     left = fillInValuesInMemoAndReturn(matrix, rowIndex + 1,
-                            columnIndex, distance - 1,
-                            maxDistance, largestSqMatMemo);
+                        columnIndex, distance - 1,
+                        maxDistance, largestSqMatMemo);
                 }
                 int right = -3;
                 if (columnIndex + 1 < matrix[0].length) {
                     right = fillInValuesInMemoAndReturn(matrix, rowIndex,
-                            columnIndex, distance - 1,
-                            maxDistance, largestSqMatMemo);
+                        columnIndex + 1, distance - 1,
+                        maxDistance, largestSqMatMemo);
                 }
 
                 int diagonal = -3;
                 if (rowIndex + 1 < matrix.length && columnIndex + 1
-                        < matrix[0].length) {
+                    < matrix[0].length) {
                     diagonal = fillInValuesInMemoAndReturn(matrix,
-                            rowIndex + 1, columnIndex + 1,
-                            distance - 1, maxDistance, largestSqMatMemo);
-                        }
+                        rowIndex + 1, columnIndex + 1,
+                        distance - 1, maxDistance, largestSqMatMemo);
+                }
 
                 if (left == -3 || right == -3 || diagonal == -3) {
                     //this should have already returned cause of the precalculation.
@@ -110,7 +110,8 @@ public class LargestSquare {
                 } else {
                     //This means that the square is good in all the 
                     //different directions and we should just 
-                    if(left == 1 && right == 1 && diagonal == 1 && matrix[rowIndex][columnIndex] == '1') {
+                    if (left == 1 && right == 1 && diagonal == 1
+                        && matrix[rowIndex][columnIndex] == '1') {
                         largestSqMatMemo[rowIndex][columnIndex][distance] = 1;
                         return 1;
                     }
