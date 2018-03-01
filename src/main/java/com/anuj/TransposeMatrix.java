@@ -74,16 +74,13 @@ public class TransposeMatrix {
     }
 
     public static TreeNode findKthSmallest(TreeNode root, int k) {
-        Comparator<TreeNode> comparator = new Comparator<TreeNode>() {
-            @Override
-            public int compare(TreeNode o1, TreeNode o2) {
-                if (o1.data < o2.data) {
-                    return -1;
-                } else if (o1.data > o2.data) {
-                    return 1;
-                } else {
-                    return 0;
-                }
+        Comparator<TreeNode> comparator = (o1, o2) -> {
+            if (o1.data < o2.data) {
+                return -1;
+            } else if (o1.data > o2.data) {
+                return 1;
+            } else {
+                return 0;
             }
         };
         PriorityQueue<TreeNode> priorityQueue = new PriorityQueue<>(comparator);
