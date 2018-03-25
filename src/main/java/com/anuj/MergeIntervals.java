@@ -1,6 +1,7 @@
 package com.anuj;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -24,7 +25,13 @@ class Interval {
 
 public class MergeIntervals {
     public static void main(String[] args) {
+        ArrayList<Interval> intervals = new ArrayList<>(Arrays.asList(
+                new Interval(1, 4),
+                new Interval(2, 5)
+        ));
 
+        ArrayList<Interval> answer = mergeIntervals(intervals);
+        answer.stream().forEach(x -> System.out.println(x));
     }
 
     public static ArrayList<Interval> mergeIntervals(ArrayList<Interval> intervals) {
@@ -62,8 +69,8 @@ public class MergeIntervals {
             }
         }
         //was the last interval swallowed/added?
-        if (interval.start == intervals.get(intervals.size() - 1).start && interval.end == intervals
-                .get(intervals.size() - 1).end) {
+        if (!(interval.start == intervals.get(intervals.size() - 1).start && interval.end == intervals
+                .get(intervals.size() - 1).end)) {
             answer.add(interval);
         }
         return answer;
