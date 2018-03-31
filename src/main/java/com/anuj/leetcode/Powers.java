@@ -9,18 +9,22 @@ public class Powers {
     }
 
     public double myPow(double x, int n) {
-        Map<Integer, Double> storedPowers = new HashMap<>();
-        return myPow(x, x, n, storedPowers);
+        if(n == 0) return 1.0;
+        double answer = 1.0;
+        for(int i=0; i < n; i++) {
+            answer *= x;
+        }
+        return answer;
     }
 
-    public double myPow(double x, double y, int n, Map<Integer, Double> storedPowers) {
+    public double myPow(double x, int n, Map<Integer, Double> storedPowers) {
         if(n == 0) return 1;
         if(n == 1) return x;
         if(storedPowers.containsKey(n)) return storedPowers.get(n);
         else {
-            double answer = myPow(x*y, y, n-1, storedPowers);
-            storedPowers.put(n, answer);
-            return answer;
+            double answer = myPow(x, n-1, storedPowers);
+            storedPowers.put(n, answer*x);
+            return answer*x;
         }
     }
 }
