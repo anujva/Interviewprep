@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
-class Interval {
+class Interval implements Cloneable {
     int start;
     int end;
 
@@ -21,13 +21,20 @@ class Interval {
                 ", end=" + end +
                 '}';
     }
+
+    @Override
+    public Interval clone() {
+        return new Interval(this.start, this.end);
+    }
 }
 
 public class MergeIntervals {
     public static void main(String[] args) {
         ArrayList<Interval> intervals = new ArrayList<>(Arrays.asList(
-                new Interval(1, 4),
-                new Interval(2, 5)
+                new Interval(1, 3),
+                new Interval(2, 6),
+                new Interval(8, 10),
+                new Interval(15, 18)
         ));
 
         ArrayList<Interval> answer = mergeIntervals(intervals);
@@ -57,21 +64,17 @@ public class MergeIntervals {
         //we will then traverse the intervals and see if the end of the first overlaps with
         //the start of the second.
         ArrayList<Interval> answer = new ArrayList<>();
-        Interval interval = new Interval(intervals.get(0).start, intervals.get(0).end);
+        Interval current = intervals.get(0).clone();
+        answer.add(current);
         for (int i = 1; i < intervals.size(); i++) {
-            if (interval.end >= intervals.get(i).start) {
-                if (interval.end < intervals.get(i).end) {
-                    interval.end = intervals.get(i).end;
-                } // else swallowed
+            if (current.end >= intervals.get(i).start) {
+                if (current.end < intervals.get(i).end) {
+                    current.end = intervals.get(i).end;
+                }
             } else {
-                answer.add(interval);
-                interval = new Interval(intervals.get(i).start, intervals.get(i).end);
+                current = intervals.get(i).clone();
+                answer.add(current);
             }
-        }
-        //was the last interval swallowed/added?
-        if (!(interval.start == intervals.get(intervals.size() - 1).start && interval.end == intervals
-                .get(intervals.size() - 1).end)) {
-            answer.add(interval);
         }
         return answer;
     }
