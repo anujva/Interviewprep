@@ -6,6 +6,7 @@ import java.util.List;
 public class SpiralOrder {
     public static void main(String[] args) {
         int[][] matrix = new int[][]{
+                {2, 5, 8}, {0, 4, -1}
         };
 
         List<Integer> answer = spiralOrder(matrix);
@@ -23,8 +24,8 @@ public class SpiralOrder {
         //find which is minimum row or column.
         //if there are only 1 rows then its just a list
         //same when its just 1 column.
-        while (startIndexCol <= matrix[0].length / 2 &&
-                startIndexRow <= matrix.length / 2) {
+        while (startIndexCol <= endIndexCol &&
+                startIndexRow <= endIndexRow) {
             int i = startIndexRow;
             int j = startIndexCol;
             for (; j <= endIndexCol; j++) {
