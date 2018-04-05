@@ -1,12 +1,22 @@
 package com.anuj.leetcode;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class SetZerosMatrix {
 
     public static void main(String[] args) {
-
+        int[][] matrix = new int[][]{
+            {1, 3, 5, 0}, {1, 5, 3, 1}, {2, 5, 8, 9}
+        };
+        setZeros(matrix);
+        Arrays.stream(matrix).forEach(x -> {
+            Arrays.stream(x).boxed().forEach(y -> {
+                System.out.print(y + " ");
+            });
+            System.out.println();
+        });
     }
 
     public static void setZeros(int[][] matrix) {
