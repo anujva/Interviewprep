@@ -19,6 +19,7 @@ public class LongestIncreasingSubsequence {
             }
             lis[i] = maxLis;
         }
+
         int maxLis = lis[0];
         for (int i = 0; i < nums.length; i++) {
             if (maxLis < lis[i]) {
