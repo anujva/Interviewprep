@@ -5,6 +5,13 @@ public class ConstructAllPossibleBST {
         System.out.println(constructBST(5));
     }
 
+    /**
+     * Catalan Number. A sequence of natural numbers that occur in various
+     * counting problems, often involving recursively-defined objects.
+     *
+     * @param n
+     * @return
+     */
     public static int constructBST(int n) {
         int[] num = new int[n + 1];
 
