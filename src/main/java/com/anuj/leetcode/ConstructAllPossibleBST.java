@@ -32,4 +32,17 @@ public class ConstructAllPossibleBST {
 
         return num[n];
     }
+
+    //Given a number how many bst can you create.
+
+    /**
+     * In order to create a bst we have to
+     *
+     * @param n
+     * @return
+     */
+    public static int constructBSTActually(int n) {
+        //BST needs to be created with nodes..
+        return 0;
+    }
 }
