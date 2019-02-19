@@ -26,11 +26,7 @@ func solveNQueen(n int) [][]string {
 	// we want to pass the chessboard and the queens
 	// down placing a queen on the board in each iteration
 	allPositions = make([]queenPositions, 0)
-	done, _ := solveNQueenSubroutine(0, n, NewChessBoard(n))
-	if done {
-		fmt.Println(allPositions)
-	}
-
+	solveNQueenSubroutine(0, n, NewChessBoard(n))
 	return nil
 }
 
@@ -40,11 +36,12 @@ type queenPositions struct {
 }
 
 var allPositions []queenPositions
+var allFinalPositions [][]queenPositions
 
-func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) (bool, ChessBoard) {
+func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) bool {
 	if queenNum == totQueens {
 		// All queens have been placed on the board
-		return true, chessBoard
+		return true
 	}
 
 	// find an empty place and place the queen
@@ -55,17 +52,19 @@ func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) (
 				chessBoardCopy := makeACopy(chessBoard)
 				placeQueenOnBoard(chessBoardCopy, i, j)
 				allPositions = append(allPositions, queenPositions{i: i, j: j})
-				done, finalChessBoard := solveNQueenSubroutine(queenNum+1, totQueens, chessBoardCopy)
+				done := solveNQueenSubroutine(queenNum+1, totQueens, chessBoardCopy)
 				// This will return only one arrangement that has the queen's in place
 				if done {
-					return true, finalChessBoard
+					if queenNum == totQueens-1 {
+						allFinalPositions = append(allFinalPositions, allPositions)
+						return true
+					}
 				}
 				allPositions = allPositions[0 : len(allPositions)-1]
 			}
 		}
 	}
-
-	return false, chessBoard
+	return false
 }
 
 func makeACopy(chessBoard ChessBoard) ChessBoard {
@@ -82,7 +81,7 @@ func placeQueenOnBoard(chessBoard ChessBoard, i int, j int) {
 	chessBoard.board[i][j] = true
 	for index := 0; index < chessBoard.size; index++ {
 		chessBoard.board[i][index] = true
-		chessBoard.board[j][index] = true
+		chessBoard.board[index][j] = true
 
 		// Set the diagonals to also be true
 		if i+index < chessBoard.size && j+index < chessBoard.size {
@@ -93,9 +92,9 @@ func placeQueenOnBoard(chessBoard ChessBoard, i int, j int) {
 			chessBoard.board[i-index][j-index] = true
 		}
 	}
-
 }
 
 func main() {
 	solveNQueen(4)
+	fmt.Println(allFinalPositions)
 }
