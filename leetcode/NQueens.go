@@ -36,7 +36,6 @@ type queenPositions struct {
 }
 
 var allPositions []queenPositions
-var allFinalPositions [][]queenPositions
 
 func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) bool {
 	if queenNum == totQueens {
@@ -56,9 +55,9 @@ func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) b
 				// This will return only one arrangement that has the queen's in place
 				if done {
 					if queenNum == totQueens-1 {
-						allFinalPositions = append(allFinalPositions, allPositions)
-						return true
+						fmt.Println(allPositions)
 					}
+					return true
 				}
 				allPositions = allPositions[0 : len(allPositions)-1]
 			}
@@ -96,5 +95,4 @@ func placeQueenOnBoard(chessBoard ChessBoard, i int, j int) {
 
 func main() {
 	solveNQueen(4)
-	fmt.Println(allFinalPositions)
 }
