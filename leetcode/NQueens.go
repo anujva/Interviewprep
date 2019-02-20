@@ -55,15 +55,28 @@ func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) b
 				// This will return only one arrangement that has the queen's in place
 				if done {
 					if queenNum == totQueens-1 {
-						fmt.Println(allPositions)
+						//fmt.Println(allPositions)
 					}
-					return true
 				}
 				allPositions = allPositions[0 : len(allPositions)-1]
+				if queenNum == 1 {
+					printBoard(chessBoard)
+				}
 			}
 		}
 	}
 	return false
+}
+
+func printBoard(chessBoard ChessBoard) {
+	for i := 0; i < chessBoard.size; i++ {
+		for j := 0; j < chessBoard.size; j++ {
+			fmt.Printf("%s, ", chessBoard.board[i][j])
+		}
+		fmt.Println()
+	}
+
+	fmt.Println()
 }
 
 func makeACopy(chessBoard ChessBoard) ChessBoard {
