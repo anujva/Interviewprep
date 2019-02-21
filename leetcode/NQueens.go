@@ -26,8 +26,50 @@ func solveNQueen(n int) [][]string {
 	// we want to pass the chessboard and the queens
 	// down placing a queen on the board in each iteration
 	allPositions = make([]queenPositions, 0)
+	allFinalPositions = make([][]queenPositions, 0)
 	solveNQueenSubroutine(0, n, NewChessBoard(n))
-	return nil
+
+	return convertAllFinalPositionsToStringBoard(allFinalPositions, n)
+}
+
+func totalNQueens(n int) int {
+	// Once we have the chessboard initialized,
+	// we want to pass the chessboard and the queens
+	// down placing a queen on the board in each iteration
+	allPositions = make([]queenPositions, 0)
+	allFinalPositions = make([][]queenPositions, 0)
+	solveNQueenSubroutine(0, n, NewChessBoard(n))
+
+	return len(allFinalPositions)
+}
+
+func convertAllFinalPositionsToStringBoard(allFinalPositions [][]queenPositions, n int) [][]string {
+	var answer [][]string
+	for i := 0; i < len(allFinalPositions); i++ {
+		var answerString []string
+		for row := 0; row < n; row++ {
+			currentrow := ""
+			for column := 0; column < n; column++ {
+				if rowColumnInFinalPostions(row, column, allFinalPositions[i]) {
+					currentrow = fmt.Sprintf("%sQ", currentrow)
+				} else {
+					currentrow = fmt.Sprintf("%s.", currentrow)
+				}
+			}
+			answerString = append(answerString, currentrow)
+		}
+		answer = append(answer, answerString)
+	}
+	return answer
+}
+
+func rowColumnInFinalPostions(row int, column int, positions []queenPositions) bool {
+	for i := 0; i < len(positions); i++ {
+		if positions[i].i == row && positions[i].j == column {
+			return true
+		}
+	}
+	return false
 }
 
 type queenPositions struct {
@@ -36,6 +78,8 @@ type queenPositions struct {
 }
 
 var allPositions []queenPositions
+var allFinalPositions [][]queenPositions
+var count int
 
 func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) bool {
 	if queenNum == totQueens {
@@ -44,7 +88,7 @@ func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) b
 	}
 
 	// find an empty place and place the queen
-	for i := 0; i < totQueens; i++ {
+	for i := queenNum; i < totQueens; i++ {
 		for j := 0; j < totQueens; j++ {
 			if !chessBoard.board[i][j] {
 				// place the current queen here and
@@ -54,29 +98,20 @@ func solveNQueenSubroutine(queenNum int, totQueens int, chessBoard ChessBoard) b
 				done := solveNQueenSubroutine(queenNum+1, totQueens, chessBoardCopy)
 				// This will return only one arrangement that has the queen's in place
 				if done {
-					if queenNum == totQueens-1 {
-						//fmt.Println(allPositions)
-					}
+					allFinalPositions = append(allFinalPositions, makeACopyOfSlice(allPositions))
+					count = count + 1
 				}
 				allPositions = allPositions[0 : len(allPositions)-1]
-				if queenNum == 1 {
-					printBoard(chessBoard)
-				}
 			}
 		}
 	}
 	return false
 }
 
-func printBoard(chessBoard ChessBoard) {
-	for i := 0; i < chessBoard.size; i++ {
-		for j := 0; j < chessBoard.size; j++ {
-			fmt.Printf("%s, ", chessBoard.board[i][j])
-		}
-		fmt.Println()
-	}
-
-	fmt.Println()
+func makeACopyOfSlice(positions []queenPositions) []queenPositions {
+	copyOfPositions := make([]queenPositions, len(positions))
+	copy(copyOfPositions, positions)
+	return copyOfPositions
 }
 
 func makeACopy(chessBoard ChessBoard) ChessBoard {
@@ -103,9 +138,20 @@ func placeQueenOnBoard(chessBoard ChessBoard, i int, j int) {
 		if i-index > -1 && j-index > -1 {
 			chessBoard.board[i-index][j-index] = true
 		}
+
+		if i+index < chessBoard.size && j-index > -1 {
+			chessBoard.board[i+index][j-index] = true
+		}
+
+		if i-index > -1 && j+index < chessBoard.size {
+			chessBoard.board[i-index][j+index] = true
+		}
 	}
 }
 
 func main() {
-	solveNQueen(4)
+	answer := solveNQueen(4)
+	answerNum := totalNQueens(4)
+	fmt.Println(answer)
+	fmt.Println(answerNum)
 }
