@@ -69,7 +69,6 @@ func printSliceOfIntegers(si []int) {
 	for _, val := range si {
 		fmt.Printf("%v ", val)
 	}
-	fmt.Println()
 }
 
 func main() {
