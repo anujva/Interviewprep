@@ -16,16 +16,17 @@ func getSliceOfIntegers(n int) []int {
 func KthPermutationSequence(n int) {
 	sliceOfIntegers := getSliceOfIntegers(n)
 	var totalSlices [][]int
-	totalSlices = append(totalSlice, sliceOfIntegers)
+	totalSlices = append(totalSlices, sliceOfIntegers)
 	totalSlices = shuffleAllSlices(totalSlices, 0, len(sliceOfIntegers))
-	printSliceOfIntegers(totalSlices)
+	printSliceOfSliceOfIntegers(totalSlices)
 }
 
 func printSliceOfSliceOfIntegers(totalSlices [][]int) {
 	for _, val := range totalSlices {
-		for val_ := range val {
-			fmt.Println(val_)
+		for _, val1 := range val {
+			fmt.Print(val1, " ")
 		}
+		fmt.Println()
 	}
 }
 
@@ -38,7 +39,7 @@ func shuffleAllSlices(totalSlices [][]int, startIndex int, size int) [][]int {
 	for i := 0; i < len(totalSlices); i++ {
 		slicesCreated := shuffleSliceOfIntegers(totalSlices[i], startIndex)
 		for _, val := range slicesCreated {
-			totalNewSlices = append(totalNewSlices, val, size)
+			totalNewSlices = append(totalNewSlices, val)
 		}
 	}
 
