@@ -28,14 +28,22 @@ Given a string representing the file system in the above format, return the leng
 
 func lengthLongegstPath(input string) int {
 	//Path to a file
-	fileName := false
+	//find the path right down to the end of the directory string
+	isFileName := false
+	var name string
 	for i := 0; i < len(input); i++ {
 		if input[i] == '.' {
-			fileName = true
+			isFileName = true
 		}
 		if input[i] == '\n' {
 			// This means that the dir or file is here
-			name := input[0 : i+1]
+			name = input[0 : i+1]
+			break
 		}
 	}
+
+	//name is the name of the either the directory or the file.
+	// if it is a file, there is no more recursion left to do and
+	// it will be okay to just return the length of the string
+	// that was generated.
 }
