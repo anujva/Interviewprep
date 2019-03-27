@@ -1,17 +1,38 @@
 package main
 
-/**
-This problem was asked by Google.
+import "fmt"
 
-An XOR linked list is a more memory efficient doubly linked list. Instead of each node holding next and prev fields, it holds a field named both, which is an XOR of the next node and the previous node. Implement an XOR linked list; it has an add(element) which adds the element to the end, and a get(index) which returns the node at index.
+/**
+* Problem statement
+	The idea of the problem is to find the max value of the sum of non-adjacent numbers in an array.
+	If the array is [5, 1, 9, 5]
+
+	Implementation is complete, memoization is probably the next step
 */
 
-// Node defines a node in an XOR linked list
-type Node struct {
-	val  int
-	both *Node
+func maxSumNonAdjacent(arr []int) int {
+	if len(arr) == 0 {
+		return 0
+	}
+
+	if len(arr) == 1 {
+		return arr[0]
+	}
+
+	if len(arr) == 2 {
+		return max(arr[0], arr[1])
+	}
+
+	return max(arr[0]+maxSumNonAdjacent(arr[2:]), maxSumNonAdjacent(arr[1:]))
+}
+
+func max(a, b int) int {
+	if a > b {
+		return a
+	}
+	return b
 }
 
 func main() {
-
+	fmt.Println(maxSumNonAdjacent([]int{5, 1, 9, 5}))
 }
