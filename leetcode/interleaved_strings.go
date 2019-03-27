@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 func isInterleave(s1 string, s2 string, s3 string) bool {
 	if len(s3) == 0 && len(s1) == 0 && len(s2) == 0 {
 		return true
@@ -23,7 +25,7 @@ func isInterleave(s1 string, s2 string, s3 string) bool {
 	var interleave2 bool
 	if len(s2) > 0 {
 		if s3[0] == s2[0] {
-			if len(s1) > 1 {
+			if len(s2) > 1 {
 				interleave2 = isInterleave(s1, s2[1:], s3[1:])
 			} else {
 				interleave2 = isInterleave(s1, "", s3[1:])
@@ -35,5 +37,5 @@ func isInterleave(s1 string, s2 string, s3 string) bool {
 }
 
 func main() {
-
+	fmt.Println(isInterleave("XXY", "XXZ", "XXXXZY"))
 }
