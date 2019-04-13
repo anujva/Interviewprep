@@ -16,39 +16,49 @@ You can assume that the messages are decodable. For example, '001' is not allowe
  */
 
 func numDecodings(message string) int {
-	checkForZero, err := strconv.Atoi(message)
-	if err != nil {
-		panic("Only numbers expected")
-	}
-	if checkForZero == 0 {
+	if len(message) == 0 {
 		return 0
 	}
-	return numDecodingsSubroutine(message)
-}
 
-func numDecodingsSubroutine(message string) int {
-	if len(message) == 0 {
+	if len(message) == 1 && message == "0" {
+		return 0
+	}
+
+	if len(message) == 1 && message != "0" {
 		return 1
 	}
 
-	if len(message) == 1 {
-		return 1
+	// take the first digit
+	firstDigit := message[0:1]
+	wordFormed := 0
+	if firstDigit != "0" {
+		wordFormed = wordFormed + numDecodings(message[1:])
 	}
 
-	if len(message) > 1 {
-		// take the first two values
-		firstTwo := message[0:2]
-		intValue, err := strconv.Atoi(firstTwo)
+	if len(message) == 2 {
+		firstTwoDigits := message[0:2]
+		intValue, err := strconv.Atoi(firstTwoDigits)
 		if err != nil {
-			panic("this should never not be numbers")
+			panic("Not possible")
 		}
-		if intValue > 0 && intValue < 27 {
-			return numDecodingsSubroutine(message[1:]) + numDecodingsSubroutine(message[2:])
+		if intValue > 9 && intValue < 27 {
+			wordFormed = wordFormed + 1
 		}
 	}
-	return numDecodingsSubroutine(message[1:])
+
+	if len(message) >= 2 {
+		firstTwoDigits := message[0:2]
+		intValue, err := strconv.Atoi(firstTwoDigits)
+		if err != nil {
+			panic("Not possible")
+		}
+		if intValue > 9 && intValue < 27 {
+			wordFormed = wordFormed + numDecodings(message[2:])
+		}
+	}
+	return wordFormed
 }
 
 func main() {
-	fmt.Println(numDecodings("12"))
+	fmt.Println(numDecodings("1111"))
 }
