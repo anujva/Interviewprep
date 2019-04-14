@@ -31,11 +31,11 @@ func getLength(root *TreeNode) (*int, int, int) {
 	valRight, lengthRight, maxLengthRight := getLength(root.Right)
 	valLeft, lengthLeft, maxLengthLeft := getLength(root.Left)
 
-	if root.Val == *valRight {
+	if valRight != nil && root.Val == *valRight {
 		lengthRight = lengthRight + 1
 	}
 
-	if root.Val == *valLeft {
+	if valLeft != nil && root.Val == *valLeft {
 		lengthLeft = lengthLeft + 1
 	}
 
