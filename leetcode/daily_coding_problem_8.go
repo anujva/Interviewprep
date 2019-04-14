@@ -31,24 +31,15 @@ func getLength(root *TreeNode) (*int, int, int) {
 	valRight, lengthRight, maxLengthRight := getLength(root.Right)
 	valLeft, lengthLeft, maxLengthLeft := getLength(root.Left)
 
-	if valRight != nil && root.Val == *valRight {
-		lengthRight = lengthRight + 1
+	length := 0
+	if valRight != nil && valLeft != nil && root.Val == *valRight && root.Val == *valLeft {
+		length = lengthRight + lengthLeft + 2
+	} else if valRight != nil && root.Val == *valRight {
+		length = lengthRight + 1
+	} else if valLeft != nil && root.Val == *valLeft {
+		length = lengthLeft + 1
 	}
 
-	if valLeft != nil && root.Val == *valLeft {
-		lengthLeft = lengthLeft + 1
-	}
-
-	length := 1
-	if lengthLeft > lengthRight {
-		if length < lengthLeft {
-			length = lengthLeft
-		}
-	} else {
-		if length < lengthRight {
-			length = lengthRight
-		}
-	}
 	maxLength := 0
 	if maxLengthLeft > maxLengthRight {
 		if length > maxLengthLeft {
@@ -71,7 +62,7 @@ func intPtr(i int) *int {
 }
 
 func main() {
-	root := &TreeNode{
+	root1 := &TreeNode{
 		Val: 5,
 		Left: &TreeNode {
 			Val: 4,
@@ -97,5 +88,36 @@ func main() {
 		},
 	}
 
-	fmt.Println(longestUnivaluePath(root))
+	root2 := &TreeNode{
+		Val: 1,
+		Left: nil,
+		Right: &TreeNode{
+			Val: 1,
+			Left: &TreeNode{
+				Val: 1,
+				Left: &TreeNode{
+					Val: 1,
+					Left: nil,
+					Right: nil,
+				},
+				Right: &TreeNode{
+					Val: 1,
+					Left: nil,
+					Right: nil,
+				},
+			},
+			Right: &TreeNode{
+				Val: 1,
+				Left: &TreeNode{
+					Val: 1,
+					Left: nil,
+					Right: nil,
+				},
+				Right: nil,
+			},
+		},
+	}
+
+	fmt.Println(longestUnivaluePath(root1))
+	fmt.Println(longestUnivaluePath(root2))
 }
