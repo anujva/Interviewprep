@@ -9,10 +9,12 @@ import "fmt"
  *     Left *TreeNode
  *     Right *TreeNode
  * }
-*/
+ * There was a fundamental flaw in my understanding of the question. When the values are being returned from
+ * two separate branches, that is the length of the final path and shouldn't be set the length
+ */
 type TreeNode struct {
-	Val int
-	Left *TreeNode
+	Val   int
+	Left  *TreeNode
 	Right *TreeNode
 }
 
@@ -20,39 +22,47 @@ func longestUnivaluePath(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
-	_, _ , maxLength := getLength(root)
-	return maxLength
+	_, _, maxLength := getLength(root)
+	return maxLength - 1
 }
 
 func getLength(root *TreeNode) (*int, int, int) {
 	if root == nil {
 		return nil, 0, 0
 	}
+
 	valRight, lengthRight, maxLengthRight := getLength(root.Right)
 	valLeft, lengthLeft, maxLengthLeft := getLength(root.Left)
 
 	length := 0
+	lengthLeftRight := 0
 	if valRight != nil && valLeft != nil && root.Val == *valRight && root.Val == *valLeft {
-		length = lengthRight + lengthLeft + 2
-	} else if valRight != nil && root.Val == *valRight {
-		length = lengthRight + 1
-	} else if valLeft != nil && root.Val == *valLeft {
-		length = lengthLeft + 1
+		lengthLeftRight = lengthLeft + lengthRight + 1
 	}
 
-	maxLength := 0
-	if maxLengthLeft > maxLengthRight {
-		if length > maxLengthLeft {
-			maxLength = length
-		} else {
-			maxLength = maxLengthLeft
-		}
+	if valRight != nil && root.Val == *valRight {
+		lengthRight = lengthRight + 1
+	}
+
+	if valLeft != nil && root.Val == *valLeft {
+		lengthLeft = lengthLeft + 1
+	}
+
+	if lengthRight < lengthLeft {
+		length = lengthLeft
 	} else {
-		if length > maxLengthRight {
-			maxLength = length
-		} else {
-			maxLength = maxLengthRight
-		}
+		length = lengthRight
+	}
+
+	maxLength := length
+	if maxLength < maxLengthLeft {
+		maxLength = maxLengthLeft
+	}
+	if maxLength < maxLengthRight {
+		maxLength = maxLengthRight
+	}
+	if maxLength < lengthLeftRight {
+		maxLength = lengthLeftRight
 	}
 	return intPtr(root.Val), length, maxLength
 }
@@ -63,54 +73,54 @@ func intPtr(i int) *int {
 
 func main() {
 	root1 := &TreeNode{
-		Val: 5,
-		Left: &TreeNode {
+		Val: 1,
+		Left: &TreeNode{
 			Val: 4,
-			Left: &TreeNode {
-				Val: 1,
-				Left: nil,
+			Left: &TreeNode{
+				Val:   4,
+				Left:  nil,
 				Right: nil,
 			},
-			Right: &TreeNode {
-				Val: 1,
-				Left: nil,
+			Right: &TreeNode{
+				Val:   4,
+				Left:  nil,
 				Right: nil,
 			},
 		},
 		Right: &TreeNode{
-			Val: 5,
+			Val:  5,
 			Left: nil,
 			Right: &TreeNode{
-				Val: 5,
-				Left: nil,
+				Val:   5,
+				Left:  nil,
 				Right: nil,
 			},
 		},
 	}
 
 	root2 := &TreeNode{
-		Val: 1,
+		Val:  1,
 		Left: nil,
 		Right: &TreeNode{
 			Val: 1,
 			Left: &TreeNode{
 				Val: 1,
 				Left: &TreeNode{
-					Val: 1,
-					Left: nil,
+					Val:   1,
+					Left:  nil,
 					Right: nil,
 				},
 				Right: &TreeNode{
-					Val: 1,
-					Left: nil,
+					Val:   1,
+					Left:  nil,
 					Right: nil,
 				},
 			},
 			Right: &TreeNode{
 				Val: 1,
 				Left: &TreeNode{
-					Val: 1,
-					Left: nil,
+					Val:   1,
+					Left:  nil,
 					Right: nil,
 				},
 				Right: nil,
