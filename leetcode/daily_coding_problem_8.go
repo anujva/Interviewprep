@@ -89,12 +89,12 @@ func main() {
 		},
 		Right: &TreeNode{
 			Val:  5,
-			Left: nil,
-			Right: &TreeNode{
+			Left: &TreeNode{
 				Val:   5,
 				Left:  nil,
 				Right: nil,
 			},
+			Right: nil,
 		},
 	}
 
