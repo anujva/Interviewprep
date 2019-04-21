@@ -2,17 +2,6 @@ package main
 
 import "fmt"
 
-/**
- * Definition for a binary tree node.
- * type TreeNode struct {
- *     Val int
- *     Left *TreeNode
- *     Right *TreeNode
- * }
- * There was a fundamental flaw in my understanding of the question. When the values are being returned from
- * two separate branches, that is the length of the final path and shouldn't be set the length
- */
-
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -76,11 +65,11 @@ func main() {
 		},
 	}
 
-	fmt.Println(longestUnivaluePath(root1))
-	fmt.Println(longestUnivaluePath(root2))
+	fmt.Println(longestUnivaluePath2(root1))
+	fmt.Println(longestUnivaluePath2(root2))
 }
 
-func longestUnivaluePath(root *TreeNode) int {
+func longestUnivaluePath2(root *TreeNode) int {
 	if root == nil {
 		return 0
 	}
