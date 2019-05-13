@@ -9,17 +9,30 @@ func maximalRectangle(matrix [][]byte) int {
 	for i := 0; i < len(matrix); i++ {
 		for j := 0; j < len(matrix[0]); j++ {
 			// start from this index and try to find the largest rectangle
-			k := getLargestRectangeAtIndex(i, j, matrix)
-			if largestRectangle < k {
-				largestRectangle = k
+			if matrix[i][j] == '1' {
+				k := getLargestRectangeAtIndex(i, j, matrix)
+				if largestRectangle < k {
+					largestRectangle = k
+				}
 			}
 		}
 	}
 	return largestRectangle
 }
 
-func largestRectangleAtIndex(i, j int, matrix [][]byte) int {
+func getLargestRectangeAtIndex(i, j int, matrix [][]byte) int {
+	maxPossibleLength := 0
+	maxPossibleWidth := 0
+	maxPossibleArea := 0
 	for row := i; row < len(matrix); row++ {
-
+		length := 0
+		for col := j; col < len(matrix); col++ {
+			if matrix[row][col] == '1' {
+				length = length + 1
+			}
+		}
+		if maxPossibleLength > length {
+			maxPossibleLength = length
+		}
 	}
 }
