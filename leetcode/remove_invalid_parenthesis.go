@@ -4,6 +4,9 @@ import "fmt"
 
 func removeInvalidParentheses(s string) []string {
 	answer := make(map[string]bool, 0)
+	if isValid(s) {
+		return []string{s}
+	}
 	for i := 0; i < len(s); i++ {
 		//remove the string at the index, and then check if the string
 		// is still valid. If it is valid, then check how many values
@@ -20,8 +23,11 @@ func removeInvalidParentheses(s string) []string {
 	// if there are no valid strings formed in this iteration
 	if len(answer) == 0 {
 		for i := 0; i < len(s); i++ {
+			if !(s[i] == '(' || s[i] == ')') {
+				continue
+			}
 			str := s[0:i] + s[i+1:]
-			return removeInvalidParenthesis(str)
+			return removeInvalidParentheses(str)
 		}
 	}
 	return getKeysAsList(answer)
@@ -35,46 +41,56 @@ func getKeysAsList(m map[string]bool) []string {
 	return l
 }
 
+type stack struct {
+	values []int
+}
+
+func (s *stack) top() *int {
+	if len(s.values) == 0 {
+		return nil
+	}
+
+	return intPtr(s.values[len(s.values)-1])
+}
+
+func (s *stack) push(v int) {
+	s.values = append(s.values, v)
+}
+
+func (s *stack) pop() *int {
+	if len(s.values) == 0 {
+		return nil
+	}
+
+	v := s.values[len(s.values)-1]
+	s.values = s.values[0 : len(s.values)-1]
+	return intPtr(v)
+}
+
+func intPtr(v int) *int {
+	return &v
+}
+
+func (s stack) isEmpty() bool {
+	return len(s.values) == 0
+}
+
 func isValid(s string) bool {
-	if len(s) == 0 {
-		return true
-	}
-
-	if len(s) == 1 {
-		return false
-	}
-
-	if s[0] != '(' {
-		return false
-	}
-
-	for i := 1; i < len(s); i++ {
-		if s[i] == ')' {
-			if isValid(stringBetween(s, 0, i)) && isValid(stringBetween(s, i, len(s))) {
-				return true
+	stk := stack{}
+	for i := 0; i < len(s); i++ {
+		if s[i] == '(' {
+			stk.push(1)
+		} else if s[i] == ')' {
+			v := stk.pop()
+			if v == nil {
+				return false
 			}
 		}
 	}
-	return false
-}
-
-func stringBetween(s string, beginIndex int, endIndex int) string {
-	if endIndex-beginIndex < 2 {
-		return ""
-	}
-
-	if beginIndex >= len(s) {
-		return ""
-	}
-
-	if endIndex > len(s) {
-		endIndex = len(s)
-	}
-
-	return s[beginIndex+1 : endIndex]
+	return stk.isEmpty()
 }
 
 func main() {
-	fmt.Println(removeInvalidParenthesis("(a)())()"))
-	//fmt.Println(removeInvalidParenthesis("(()"))
+	//fmt.Println(isValid("(a)()()"))
+	fmt.Println(removeInvalidParentheses("(a)())()"))
 }
