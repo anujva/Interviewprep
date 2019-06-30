@@ -11,3 +11,4 @@ gradle/*
 .settings/**
 bin
 tags
+*idea*
