@@ -67,7 +67,7 @@ func main() {
 		for i := 2000; i < 3000; i++ {
 			r.Limit()
 			fmt.Printf("%d, ", i)
-		}
+	`	}
 		r.Close()
 		w.Done()
 	}()
