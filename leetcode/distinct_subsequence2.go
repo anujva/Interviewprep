@@ -5,8 +5,7 @@ import "fmt"
 // Need to memoize this solution otherwise no chance
 func distinctSubseqII(S string) int {
 	m := make(map[string]bool) // will keep a track of the distinct ones
-	m2 := make(map[string][]string)
-	l := distinctSubseqSubroutine(S, m2)
+	l := distinctSubseqSubroutine(S, m)
 
 	for _, v := range l {
 		if !m[v] {
@@ -17,32 +16,38 @@ func distinctSubseqII(S string) int {
 	return len(m)
 }
 
-func distinctSubseqSubroutine(S string, m map[string][]string) []string {
+var recursionDepth int = 0
+
+func distinctSubseqSubroutine(S string, m map[string]bool) []string {
 	if len(S) == 1 {
 		m[S] = true
 		return []string{S}
 	}
 
-	var fromRecursion []string
-	if v, ok := m[S]; ok {
-		fromRecursion = m[S]
-	} else {
-		fromRecursion := distinctSubseqSubroutine(S[1:])
-		addToMap(fromRecursion, m, S)
-	}
+	fromRecursion := distinctSubseqSubroutine(S[1:], m)
+	fmt.Println("FromRecursion: ", fromRecursion)
 	// current first letter S[0:1]
 	answerInThisRecursion := []string{S[0:1]}
 	// append the first letter in all the places in the string contained in fromRecursion
 	answerInThisRecursion = append(answerInThisRecursion, (appendAllValues(S[0:1], fromRecursion))...)
 	answerInThisRecursion = append(answerInThisRecursion, fromRecursion...)
 	// add all the strings in the map
-	return answerInThisRecursion
+	aDedup := addToMap(answerInThisRecursion, m)
+	return aDedup
 }
 
-func addToMap(answer []string, m map[string][]string, first string) {
-	for _, s := range answer {
-		m[s] = true
+func addToMap(answer []string, m map[string]bool) []string {
+	for _, ans := range answer {
+		if !m[ans] {
+			m[ans] = true
+		}
 	}
+
+	a := []string{}
+	for k, _ := range m {
+		a = append(a, k)
+	}
+	return a
 }
 
 func appendAllValues(s string, fromRecursion []string) []string {
@@ -58,4 +63,5 @@ func main() {
 	fmt.Println(distinctSubseqII("abc"))
 	fmt.Println(distinctSubseqII("aba"))
 	fmt.Println(distinctSubseqII("aaa"))
+	fmt.Println(distinctSubseqII("pcrdhwdxmqdznbenhwjsenjhvulyve"))
 }
