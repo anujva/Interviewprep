@@ -70,10 +70,6 @@ func isMatchAutomaton(s string, start *AutoNode) bool {
 		if isMatchAutomaton(s, start.Next) {
 			return true
 		}
-
-		if isMatchAutomaton(s[1:], start) {
-			return true
-		}
 	}
 
 	return false
@@ -115,15 +111,15 @@ func testIfRepeating(p string) bool {
 }
 
 func main() {
-	//fmt.Println(isMatch("apesht", "ape*sh*t"))
-	//fmt.Println(isMatch("apeeeeesht", "ape*sh*t"))
-	//fmt.Println(isMatch("apeshit", "ape*sh*t"))
-	//fmt.Println(isMatch("apeshit", ".*"))
-	//fmt.Println(isMatch("apeshit", ".pesh.t"))
-	//fmt.Println(isMatch("apeshit", "......."))
-	//fmt.Println(isMatch("aab", "c*a*b"))
-	//fmt.Println(isMatch("", "a*"))
-	//fmt.Println(isMatch("ab", ".*"))
-	//fmt.Println(isMatch("mississippi", "mis*is*p*."))
+	fmt.Println(isMatch("apesht", "ape*sh*t"))
+	fmt.Println(isMatch("apeeeeesht", "ape*sh*t"))
+	fmt.Println(isMatch("apeshit", "ape*sh*t"))
+	fmt.Println(isMatch("apeshit", ".*"))
+	fmt.Println(isMatch("apeshit", ".pesh.t"))
+	fmt.Println(isMatch("apeshit", "......."))
+	fmt.Println(isMatch("aab", "c*a*b"))
+	fmt.Println(isMatch("", "a*"))
+	fmt.Println(isMatch("ab", ".*"))
+	fmt.Println(isMatch("mississippi", "mis*is*p*."))
 	fmt.Println(isMatch("", "c*c*"))
 }
