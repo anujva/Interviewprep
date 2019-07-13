@@ -27,23 +27,7 @@ func (f *Fraction) String() string {
 }
 
 // Sort a list of fractions in sorted order
-func sort(l []*Fraction, k int) []*Fraction {
-	//for i, val := range l {
-	//	min := val
-	//	index := i
-	//	for j := i; j < len(l); j++ {
-	//		//find the minimum in this array;
-	//		if min.compareTo(l[j]) == 1 {
-	//			min = l[j]
-	//			index = j
-	//		}
-	//	}
-	//	temp := val
-	//	l[i] = min
-	//	l[index] = temp
-	//}
-	// at this point the array is sorted
-
+func sort(l []*Fraction) []*Fraction {
 	if len(l) <= 1 {
 		return l
 	}
@@ -51,7 +35,7 @@ func sort(l []*Fraction, k int) []*Fraction {
 	a1 := sort(l[0 : len(l)/2])
 	a2 := sort(l[len(l)/2:])
 
-	return merge(a1, a2, k)
+	return merge(a1, a2)
 }
 
 func merge(a, b []*Fraction) []*Fraction {
@@ -80,7 +64,7 @@ func merge(a, b []*Fraction) []*Fraction {
 func kthSmallestPrimeFraction(A []int, K int) []int {
 	l := getFractions(A)
 	l = sort(l)
-	return getGCDRepresentation(l[K-1])
+	return []int{l[K-1].numerator, l[K-1].denominator}
 }
 
 func getGCDRepresentation(f *Fraction) []int {
