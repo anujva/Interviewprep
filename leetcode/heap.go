@@ -10,6 +10,7 @@ type Heap struct {
 	initialSize int
 }
 
+// New returns a new Heap
 func New(arr []int) *Heap {
 	// storing the passed reference in the new struct
 	if arr == nil {
@@ -22,6 +23,7 @@ func New(arr []int) *Heap {
 	}
 }
 
+// Heapify does the operation that will keep the invariant property intact
 func (h *Heap) Heapify() {
 	// this will run the heapify algorithm on the internal
 	// array
